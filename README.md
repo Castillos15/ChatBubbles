@@ -1,0 +1,1 @@
+Displays what the player says above his/her head.
