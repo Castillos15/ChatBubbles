@@ -2,7 +2,7 @@ class "ChatBubbles"
 
 function ChatBubbles:__init ( )
 	-- Settings
-	self.canSeeOwn = false -- Defines whether the player can see his/her own messages above his head or not.
+	self.canSeeOwn = true -- Defines whether the player can see his/her own messages above his head or not.
 	self.maxBubbles = 5 -- Defines how much messages will be drawn at once for each player.
 	self.timeout = 5 -- Defines for how long the message will be displayed ( in seconds ).
 	self.distance = 30 -- Defines how close you must be to the player to see his chat bubbles.
@@ -14,12 +14,12 @@ function ChatBubbles:__init ( )
 	self.fontSize = TextSize.Default
 	self.textScale = 1
 
-	Events:Subscribe ( "PlayerChat", self, self.onPlayerChat )
 	Events:Subscribe ( "PlayerQuit", self, self.onPlayerQuit )
 	Events:Subscribe ( "Render", self, self.onBubblesRender )
+	Network:Subscribe ( "chatBubbles.receiveMessage", self, self.addMessage )
 end
 
-function ChatBubbles:onPlayerChat ( args )
+function ChatBubbles:addMessage ( args )
 	if ( args.player == LocalPlayer and not self.canSeeOwn ) then
 		return
 	end
