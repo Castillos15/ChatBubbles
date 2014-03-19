@@ -8,6 +8,7 @@ function ChatBubbles:__init ( )
 	self.distance = 30 -- Defines how close you must be to the player to see his chat bubbles.
 	self.backgroundColor = Color ( 0, 0, 0, 150 ) -- Defines the rectangle background colour.
 	self.textColor = Color ( 255, 255, 255 ) -- Defines the bubble text colour.
+	self.height = 0.5 -- Defines how above the head the bubbles will start to draw.
 
 	-- Don't touch!
 	self.bubbles = { }
@@ -42,7 +43,7 @@ function ChatBubbles:onBubblesRender ( )
 				local headPos = player:GetBonePosition ( "ragdoll_head" )
 				local distance = position:Distance2D ( myPos )
 				if ( distance <= self.distance ) then
-					local height = 0.3
+					local height = self.height
 					for index = #bubbles, 1, -1 do
 						local data = bubbles [ index ]
 						if ( type ( data ) == "table" ) then
